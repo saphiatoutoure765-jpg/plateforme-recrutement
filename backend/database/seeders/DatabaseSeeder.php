@@ -2,21 +2,28 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\Role;
+use App\Models\Competence;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::firstOrCreate(
+            ['email' => 'admin@plateforme.test'],
+            [
+                'nom' => 'Administrateur',
+                'prenom' => 'Plateforme',
+                'password' => Hash::make('Admin12345'),
+                'role' => Role::ADMIN->value,
+            ]
+        );
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        foreach (['PHP', 'Laravel', 'Angular', 'JavaScript', 'MySQL', 'HTML/CSS', 'Git', 'Python'] as $nom) {
+            Competence::firstOrCreate(['nom_competence' => $nom]);
+        }
     }
 }
