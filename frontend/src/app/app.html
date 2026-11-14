@@ -1,1 +1,63 @@
-<h1 class="text-3xl font-bold text-blue-600">Plateforme de recrutement</h1>
+<header class="sticky top-0 z-50 border-b border-white/10 bg-nuit-900/90 backdrop-blur-md">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+    <a routerLink="/" class="flex items-center gap-3" (click)="fermer()">
+      <span
+        class="flex h-10 w-10 items-center justify-center rounded-xl bg-menthe-400 font-display text-xl font-bold text-nuit-900"
+      >{{ logo }}</span>
+      <span class="font-display text-lg font-semibold text-sable-50">{{ nom }}</span>
+    </a>
+
+    <nav class="hidden items-center gap-1 text-sm font-medium text-sable-100 md:flex">
+      <a routerLink="/" routerLinkActive="bg-white/10" [routerLinkActiveOptions]="{ exact: true }" class="rounded-lg px-3 py-2 hover:bg-white/10">Accueil</a>
+      <a routerLink="/offres" routerLinkActive="bg-white/10" class="rounded-lg px-3 py-2 hover:bg-white/10">Offres</a>
+
+      @if (auth.estConnecte()) {
+        <a [routerLink]="auth.espacePersonnel()" routerLinkActive="bg-white/10" class="rounded-lg px-3 py-2 hover:bg-white/10">Mon espace</a>
+        <span class="ml-2 rounded-full bg-white/10 px-3 py-1 text-xs text-nuit-100">{{ auth.user()?.prenom }} · {{ auth.role() }}</span>
+        <button type="button" (click)="auth.deconnexion()" class="btn btn-outline-light ml-2 !px-4 !py-2">Déconnexion</button>
+      } @else {
+        <a routerLink="/connexion" routerLinkActive="bg-white/10" class="rounded-lg px-3 py-2 hover:bg-white/10">Connexion</a>
+        <a routerLink="/inscription" class="btn btn-primary ml-2 !px-4 !py-2">Inscription</a>
+      }
+    </nav>
+
+    <button
+      type="button"
+      class="rounded-lg p-2 text-sable-50 hover:bg-white/10 md:hidden"
+      aria-label="Ouvrir le menu"
+      (click)="basculer()"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
+  </div>
+
+  @if (menuOuvert()) {
+    <div class="space-y-1 border-t border-white/10 px-4 py-3 text-sm font-medium text-sable-100 md:hidden">
+      <a routerLink="/" class="block rounded-lg px-3 py-2 hover:bg-white/10" (click)="fermer()">Accueil</a>
+      <a routerLink="/offres" class="block rounded-lg px-3 py-2 hover:bg-white/10" (click)="fermer()">Offres</a>
+      @if (auth.estConnecte()) {
+        <a [routerLink]="auth.espacePersonnel()" class="block rounded-lg px-3 py-2 hover:bg-white/10" (click)="fermer()">Mon espace</a>
+        <button type="button" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-white/10" (click)="auth.deconnexion(); fermer()">Déconnexion</button>
+      } @else {
+        <a routerLink="/connexion" class="block rounded-lg px-3 py-2 hover:bg-white/10" (click)="fermer()">Connexion</a>
+        <a routerLink="/inscription" class="block rounded-lg px-3 py-2 hover:bg-white/10" (click)="fermer()">Inscription</a>
+      }
+    </div>
+  }
+</header>
+
+<main class="min-h-[70vh]">
+  <router-outlet />
+</main>
+
+<footer class="bg-nuit-950 py-10 text-sm text-nuit-200">
+  <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6">
+    <div class="flex items-center gap-3">
+      <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-menthe-400 font-display font-bold text-nuit-900">{{ logo }}</span>
+      <span class="font-display text-base font-semibold text-sable-50">{{ nom }}</span>
+    </div>
+    <p>Mémoire de fin de cycle · Licence 3 Génie Logiciel · ISI Keur Massar</p>
+  </div>
+</footer>

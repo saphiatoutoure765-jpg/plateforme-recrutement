@@ -1,2 +1,83 @@
 @import "tailwindcss";
-/* You can add global styles to this file, and also import other style files */
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+
+  --color-nuit-50: #eef2f9;
+  --color-nuit-100: #d9e2f1;
+  --color-nuit-200: #b3c5e3;
+  --color-nuit-300: #7f9bc8;
+  --color-nuit-400: #4e6fa3;
+  --color-nuit-500: #2e4a7d;
+  --color-nuit-600: #1f3763;
+  --color-nuit-700: #162a4e;
+  --color-nuit-800: #0f1f3d;
+  --color-nuit-900: #0a1630;
+  --color-nuit-950: #060d20;
+
+  --color-menthe-50: #effdf7;
+  --color-menthe-100: #d3f9e8;
+  --color-menthe-200: #a9f0d1;
+  --color-menthe-300: #72e2b5;
+  --color-menthe-400: #3fcd97;
+  --color-menthe-500: #1fb37f;
+  --color-menthe-600: #12906a;
+  --color-menthe-700: #107356;
+  --color-menthe-800: #115c46;
+  --color-menthe-900: #104b3a;
+
+  --color-sable-50: #fbf8f3;
+  --color-sable-100: #f5efe4;
+  --color-sable-200: #ebe0cc;
+  --color-sable-300: #dccaa9;
+  --color-sable-400: #c9ad82;
+  --color-sable-500: #b89264;
+  --color-sable-600: #8a6a43;
+
+  --color-ambre-100: #fdf0d5;
+  --color-ambre-500: #e9a23b;
+  --color-ambre-700: #9a6212;
+
+  --color-corail-100: #fde4e1;
+  --color-corail-500: #e2574c;
+  --color-corail-700: #a62f26;
+
+  --animate-flotte: flotte 6s ease-in-out infinite;
+  --animate-apparition: apparition 0.7s ease-out both;
+
+  @keyframes flotte {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes apparition {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-sable-50 font-sans text-nuit-900 antialiased; }
+  h1, h2, h3, h4 { font-family: var(--font-display); }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-menthe-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary { @apply bg-menthe-400 text-nuit-900 shadow-lg shadow-menthe-500/25 hover:-translate-y-0.5 hover:bg-menthe-300; }
+  .btn-dark { @apply bg-nuit-900 text-sable-50 hover:-translate-y-0.5 hover:bg-nuit-700; }
+  .btn-outline { @apply border border-nuit-200 bg-white text-nuit-800 hover:border-menthe-400 hover:text-menthe-700; }
+  .btn-outline-light { @apply border border-white/30 text-white hover:bg-white/10; }
+  .btn-danger { @apply bg-corail-100 text-corail-700 hover:bg-corail-500 hover:text-white; }
+
+  .champ {
+    @apply w-full rounded-xl border border-sable-300 bg-white px-4 py-3 text-sm text-nuit-900 placeholder:text-nuit-300 transition focus:border-menthe-400 focus:outline-none focus:ring-4 focus:ring-menthe-200/60;
+  }
+  .etiquette { @apply mb-1.5 block text-sm font-semibold text-nuit-700; }
+  .carte { @apply rounded-2xl border border-sable-200 bg-white shadow-sm; }
+  .badge { @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold; }
+  .titre-section { @apply font-display text-3xl font-bold tracking-tight text-nuit-900 sm:text-4xl; }
+}
