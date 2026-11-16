@@ -5,6 +5,9 @@ import { Inscription } from './pages/inscription';
 import { Offres } from './pages/offres';
 import { OffreDetail } from './pages/offre-detail';
 import { EspaceProvisoire } from './pages/espace-provisoire';
+import { EspaceCandidat } from './pages/espace-candidat';
+import { ProfilCandidat } from './pages/profil-candidat';
+import { MesCandidatures } from './pages/mes-candidatures';
 import { roleGuard, visiteurGuard } from './services/guards';
 
 export const routes: Routes = [
@@ -14,8 +17,12 @@ export const routes: Routes = [
   { path: 'offres', component: Offres, title: 'Offres' },
   { path: 'offres/:id', component: OffreDetail, title: "Détail de l'offre" },
 
-  // Espaces personnels : pages provisoires, remplacées dans les lots 3, 4 et 5.
-  { path: 'candidat', component: EspaceProvisoire, canActivate: [roleGuard('candidat')], title: 'Espace candidat' },
+  // Espace candidat
+  { path: 'candidat', component: EspaceCandidat, canActivate: [roleGuard('candidat')], title: 'Mon espace' },
+  { path: 'candidat/profil', component: ProfilCandidat, canActivate: [roleGuard('candidat')], title: 'Mon profil' },
+  { path: 'candidat/candidatures', component: MesCandidatures, canActivate: [roleGuard('candidat')], title: 'Mes candidatures' },
+
+  // Pages provisoires : remplacées dans les lots 4 et 5.
   { path: 'entreprise', component: EspaceProvisoire, canActivate: [roleGuard('entreprise')], title: 'Espace entreprise' },
   { path: 'admin', component: EspaceProvisoire, canActivate: [roleGuard('admin')], title: 'Administration' },
 
